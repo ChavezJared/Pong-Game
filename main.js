@@ -51,7 +51,7 @@ function drawCircle(x,y,r,color){
     context.closePath()
     context.fill()
 }
-
+// Ball
 const ball = {
     x:canvas.width/2,
     y:canvas.height/2,
@@ -64,3 +64,12 @@ const ball = {
 }
 
 drawCircle(ball.x,ball.y,ball.radius,ball.color);
+
+// score
+function drawText(text,x,y,color){
+    context.fillStyle = color
+    context.font ="26px Rubik Pixels"
+    context.fillText(text,x,y)
+}
+drawText(ai.score,20,canvas.height/2-30)
+drawText(player1.score,20,canvas.height/2 + 30)
