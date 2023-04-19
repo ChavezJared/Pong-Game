@@ -1,10 +1,11 @@
 *{
     margin: 0;
     padding: 0;
+    align-items: center;
 }
 
 body{
-    background-color: whitesmoke;
+    background-color: white;
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -14,4 +15,31 @@ body{
    display: flex;
    align-items: center;
    justify-content: center;
+}
+
+#result{
+    height: 200px;
+    width: 400px;
+    background-color: black;
+    margin: 1rem auto;
+    border-radius: 20px;
+    font-size: 30px;
+    text-align: center;
+    color: lightpink;
+    font-family: 'Courier New', Courier, monospace;
+    display: none;
+    margin-top: 250px;;
+}
+
+#btn{
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: none;
+    color: black;
+    background-color: lightpink;
+    font-size: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+
 }

@@ -1,4 +1,4 @@
-console.log('YERRRRRRR')
+// console.log('YERRRRRRR')
 const canvas = document.getElementById('pongGame');
 const context = canvas.getContext('2d');
 
@@ -7,7 +7,7 @@ function drawRect(x,y,w,h,color){
     context.fillRect(x,y,w,h)
 };
 // Canvas
-drawRect(0,0,400,600);
+drawRect(0,0,400,600,'pink');
 
 //Ai Paddle
 const ai = {
@@ -56,7 +56,7 @@ const ball = {
     x:canvas.width/2,
     y:canvas.height/2,
     radius: 10,
-    speed: 5,
+    speed: 1,
     velocityX: 5,
     velocityY:5,
     color: 'purple'
@@ -68,7 +68,7 @@ const ball = {
 // score
 function drawText(text,x,y,color){
     context.fillStyle = color
-    context.font ="26px Rubik Pixels"
+    context.font ="32px Rubik Pixels"
     context.fillText(text,x,y)
 };
 // drawText(ai.score,20,canvas.height/2-30)
@@ -105,25 +105,71 @@ function collision(b,p){
     p.top = p.y;
     p.bottom = p.y + p.height;
     p.left = p.x;
-    p.right = p.x + width;
+    p.right = p.x + p.width;
 
     return p.right > b.left && p.left < b.right && b.bottom > p.top && b.top < p.bottom;
 }
+
+
 
 
 function ballMovement() {
     ball.x += ball.velocityX;
     ball.y += ball.velocityY;
 
+    //ai paddle
+    let computerLevel = 0.1;
+   ai.x += (ball.x - (ai.x + ai.width/2)) + computerLevel;
+
+
     //wall hit 
 if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0){
     ball.velocityX = -ball.velocityX;
 }
+
+//if collision occured
+let player = (ball.y < canvas.height/2)? ai : player1 ;
+    if(collision(ball,player)){
+        ball.velocityY = -ball.velocityY;
+        
+    }
+
+    //score
+    if(ball.y - ball.radius < 0){
+        player1.score++
+        resetBall()
+    }else if(ball.y + ball.radius > canvas.height){
+        ai.score++
+        resetBall()
+    }
+    //game point
+    if(player1.score > 3 || ai.score > 3){
+        clearInterval(loop);
+        showGameOver();
+    }
 };
 
+//reset after point
+function resetBall(){
+    ball.x = canvas.width/2;
+    ball.y + canvas.height/2;
+
+    ball.speed = 1;
+    ball.velocityY = -ball.velocityY;
+}
 
 
 
+//game over
+function showGameOver() {
+    //removes canvas
+    canvas.style.display = 'none';
+    const can = document.getElementById('can')
+    can.style.display = 'none';
+    
+    const result = document.getElementById('result')
+    result.style.display = 'block';
+}
 
 
 
